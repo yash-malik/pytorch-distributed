@@ -85,7 +85,7 @@ class DistributedTrainer(Trainer):
         # Key insight: With multiple ranks, each step processes micro_batch_size * world_size sequences
         # Example: global=32, micro=8, world=2 -> effective_per_step=16, grad_acc=32/16=2
         effective_batch_per_step = micro_batch_size * self.world_size
-        self.grad_accumulation_steps = global_batch_size // effective_batch_per_step
+        self.grad_accumulation_steps = 0  # global_batch_size // effective_batch_per_step
         
         print(f"DistributedTrainer initialized: rank={self.rank}, world_size={self.world_size}, "
               f"grad_acc_steps={self.grad_accumulation_steps}, ddp_enabled={ddp_enabled}")
@@ -119,8 +119,9 @@ class DistributedTrainer(Trainer):
         
         if self.ddp_enabled and not should_sync:
             # Don't sync gradients for intermediate micro-batches
-            with self.model.no_sync():
-                scaled_loss.backward()
+            # with self.model.no_sync():
+            #     scaled_loss.backward()
+            pass
         else:
             # Sync gradients on last micro-batch (triggers all_reduce in DDP)
             scaled_loss.backward()
@@ -148,7 +149,8 @@ class DistributedTrainer(Trainer):
         # TODO 3: Convert loss to tensor and perform all_reduce averaging
         # Hint: Use dist.all_reduce() with ReduceOp.AVG
         loss_tensor = torch.tensor([loss], device=device)
-        dist.all_reduce(loss_tensor, op=dist.ReduceOp.AVG)
+        # dist.all_reduce(tensor=, op=)
+
         return loss_tensor.item()
     
     def train(self, dataloader, profiler: Optional[Any] = None) -> None:

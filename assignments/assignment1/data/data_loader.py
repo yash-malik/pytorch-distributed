@@ -6,7 +6,7 @@ from typing import Iterator, Tuple, List, Union
 from huggingface_hub import hf_hub_download
 
 
-def download_fineweb10B_files(local_dir="data/fineweb10B", num_train_files=None):
+def download_fineweb10B_files(local_dir=".cache/data/fineweb10B", num_train_files=None):
     """
     Download fineweb10B-gpt2 dataset files from HuggingFace Hub
     https://huggingface.co/datasets/kjj0/fineweb10B-gpt2 (contains the GPT-2 tokens for fineweb10B)

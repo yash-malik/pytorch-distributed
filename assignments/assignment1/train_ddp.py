@@ -118,7 +118,6 @@ def main():
         global_batch_size=global_batch_size,
         micro_batch_size=micro_batch_size,
         log_every_n_steps=10,
-        checkpoint_dir="checkpoints/ddp",
         ddp_enabled=True
     )
     
@@ -129,7 +128,8 @@ def main():
     from torch.profiler import profile, ProfilerActivity, schedule
     
     # Each rank generates its own trace
-    trace_path = f"traces/ddp/rank{rank}_trace.json"
+    os.makedirs("outputs/traces/ddp", exist_ok=True)
+    trace_path = f"outputs/traces/ddp/rank{rank}_trace.json"
     
     with profile(
         activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA],
@@ -140,7 +140,7 @@ def main():
     
     if rank == 0:
         print("DDP training completed!")
-        print(f"Traces saved to: traces/ddp/")
+        print(f"Traces saved to: outputs/traces/ddp/")
     
     # Cleanup
     dist.destroy_process_group()

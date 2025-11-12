@@ -8,3 +8,21 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Training outputs (traces, checkpoints, etc.)
+outputs/
+
+# Downloaded training data cache
+.cache/
+
+# Model checkpoints
+*.pt
+*.pth
+*.ckpt
+
+# PyTorch profiler outputs
+*.json.gz
+*.pickle
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/

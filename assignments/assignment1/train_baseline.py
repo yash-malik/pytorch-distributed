@@ -8,6 +8,7 @@ Run: uv run python train_baseline.py
 import torch
 import torch.nn as nn
 from transformers import AutoConfig
+import os
 
 from model.my_gpt2 import MyGPT2LMHeadModel
 from data.data_loader import KJJ0DataLoader, download_fineweb10B_files
@@ -70,23 +71,23 @@ def main():
         max_steps=max_steps,
         global_batch_size=global_batch_size,
         micro_batch_size=micro_batch_size,
-        log_every_n_steps=10,
-        checkpoint_dir="checkpoints/baseline"
+        log_every_n_steps=10
     )
     
     # Training with profiling
     print("Starting training with profiling...")
     from torch.profiler import profile, ProfilerActivity, schedule
     
+    os.makedirs("outputs/traces/baseline", exist_ok=True)
     with profile(
         activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA],
         schedule=schedule(wait=2, warmup=2, active=6, repeat=1),
-        on_trace_ready=lambda p: p.export_chrome_trace("traces/baseline/trace.json")
+        on_trace_ready=lambda p: p.export_chrome_trace("outputs/traces/baseline/trace.json")
     ) as prof:
         trainer.train(dataloader, profiler=prof)
     
     print("Baseline training completed!")
-    print(f"Traces saved to: traces/baseline/")
+    print(f"Traces saved to: outputs/traces/baseline/")
 
 
 if __name__ == "__main__":

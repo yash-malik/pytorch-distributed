@@ -157,7 +157,6 @@ def main():
         global_batch_size=global_batch_size,
         micro_batch_size=micro_batch_size,
         log_every_n_steps=10,
-        checkpoint_dir=f"checkpoints/fsdp_{args.strategy.lower()}",
         ddp_enabled=True  # FSDP also uses no_sync and distributed features
     )
     
@@ -168,7 +167,7 @@ def main():
     from torch.profiler import profile, ProfilerActivity, schedule
     
     # Save traces to strategy-specific directory
-    trace_dir = f"traces/fsdp_{args.strategy.lower()}"
+    trace_dir = f"outputs/traces/fsdp_{args.strategy.lower()}"
     os.makedirs(trace_dir, exist_ok=True)
     trace_path = f"{trace_dir}/rank{rank}_trace.json"
     
