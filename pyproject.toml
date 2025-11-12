@@ -1,0 +1,14 @@
+[project]
+name = "pytorch-distributed"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "datasets>=4.4.1",
+    "holistictraceanalysis>=0.5.0",
+    "ipykernel>=7.1.0",
+    "matplotlib>=3.10.7",
+    "torch>=2.9.0",
+    "transformers>=4.57.1",
+]
