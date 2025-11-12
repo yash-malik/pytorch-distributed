@@ -54,3 +54,16 @@ Use `analyze_traces.ipynb` to compare:
 - Temporal breakdown (compute vs communication vs idle)
 - Communication patterns (all_reduce, all_gather, reduce_scatter)
 - Memory usage
+
+## Generated Outputs
+
+All generated files are organized in dedicated directories:
+
+**Training Traces** (`outputs/traces/`):
+- `outputs/traces/baseline/` - Single GPU baseline traces
+- `outputs/traces/ddp/` - DDP training traces (per-rank)
+- `outputs/traces/fsdp_full_shard/` - FSDP FULL_SHARD traces (per-rank)
+- `outputs/traces/fsdp_shard_grad_op/` - FSDP SHARD_GRAD_OP traces (per-rank)
+
+**Training Data** (`.cache/data/`):
+- `.cache/data/fineweb10B/` - Downloaded training dataset files

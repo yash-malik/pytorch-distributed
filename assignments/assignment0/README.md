@@ -43,3 +43,10 @@ uv run python throughput.py
 - `memory_analysis.py` - Memory profiling assignment
 - `throughput.py` - Throughput measurement and scaling
 - `model/my_gpt2.py` - Self-contained GPT-2 implementation
+
+## Generated Outputs
+
+All generated files are saved to the `outputs/` directory:
+
+- `outputs/task1_memory_snapshot.pickle` - Memory snapshot from Task 1 (view at [pytorch.org/memory_viz](https://pytorch.org/memory_viz))
+

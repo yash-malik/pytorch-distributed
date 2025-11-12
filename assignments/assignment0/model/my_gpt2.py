@@ -4,7 +4,7 @@ import functools
 from torch.utils.checkpoint import checkpoint, create_selective_checkpoint_contexts
 from transformers.activations import ACT2FN
 from transformers import AutoConfig, AutoModelForCausalLM
-from pytorch_utils import compute_intensive_ops
+from .pytorch_utils import compute_intensive_ops
 
 
 class MyGPT2Attention(nn.Module):

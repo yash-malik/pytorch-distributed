@@ -110,8 +110,10 @@ def profile_actual_memory(config, batch_size, seq_length):
             reserved_memory = 0
         
         # TODO: Save memory snapshot for visualization
-        torch.cuda.memory._dump_snapshot("task1_memory_snapshot.pickle")
-        print("Memory snapshot saved: task1_memory_snapshot.pickle")
+        import os
+        os.makedirs("outputs", exist_ok=True)
+        torch.cuda.memory._dump_snapshot("outputs/task1_memory_snapshot.pickle")
+        print("Memory snapshot saved: outputs/task1_memory_snapshot.pickle")
         print("View at: https://pytorch.org/memory_viz")
         
         return {
